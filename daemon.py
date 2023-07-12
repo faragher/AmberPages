@@ -31,11 +31,20 @@ class APAnnounceHandler:
       blacklist = 0
       lastseen = time.time()
       cleanname = (app_data.decode("utf-8")).replace("`","")
+      cleanname = (app_data.decode("utf-8")).replace("'","")
+      cleanname = (app_data.decode("utf-8")).replace('"',"")
+      
       c.execute("INSERT INTO pages VALUES ('"+cleanname+"', '"+cleanhash+"', '"+str(lastseen)+"', "+str(blacklist)+", "+str(flags)+")")
       con.commit()
       con.close()
     else:
       print("Entry exists")
+      query = "UPDATE pages SET lastseen = '"+str(time.time())+"' WHERE hash = '"+cleanhash+"'"
+      c.execute(query)
+      con.commit()
+      con.close()
+      print("LastSeen updated successfully")
+      
 
 
 
@@ -43,6 +52,7 @@ class APAnnounceHandler:
 
 userdir = os.path.expanduser("~")
 configdir = userdir+"/.AmberPages"
+#configdir = "/opt/amberpages"
 if not os.path.isdir(configdir):
   os.makedirs(configdir)
 
