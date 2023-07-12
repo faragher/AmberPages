@@ -31,8 +31,8 @@ class APAnnounceHandler:
       blacklist = 0
       lastseen = time.time()
       cleanname = (app_data.decode("utf-8")).replace("`","")
-      cleanname = (cleanname.replace("'",""))
-      cleanname = (cleanname.replace('"',""))
+      cleanname = (cleanname.replace("'","''"))
+#      cleanname = (cleanname.replace('"',"'\""))
       
       c.execute("INSERT INTO pages VALUES ('"+cleanname+"', '"+cleanhash+"', '"+str(lastseen)+"', "+str(blacklist)+", "+str(flags)+")")
       con.commit()
