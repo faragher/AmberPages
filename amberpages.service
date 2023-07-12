@@ -1,0 +1,11 @@
+[Unit]
+Description=Amber Pages service for NomadNetwork
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/python3 /opt/amberpages/daemon.py
+
+[Install]
+WantedBy=multi-user.target
