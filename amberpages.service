@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-User=faragher
+User=USER
 Restart=always
 ExecStart=/usr/bin/python3 /opt/amberpages/daemon.py
 StandardOutput=file:/opt/amberpages/log_file
