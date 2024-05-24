@@ -27,6 +27,8 @@ class APAnnounceHandler:
     c.execute(query)
     cleanname = (app_data.decode("utf-8")).replace("`","")
     cleanname = (cleanname.replace("'","''"))
+    cleanname = (cleanname.replace("[","("))
+    cleanname = (cleanname.replace("]",")"))
 #    cleanname = (cleanname.replace('"',"'\""))
 
     if not c.fetchone():
