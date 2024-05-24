@@ -25,25 +25,25 @@ class APAnnounceHandler:
       print("Attached App_Data "+app_data.decode("utf-8"))
     query = "SELECT name from pages WHERE hash='"+cleanhash+"'"
     c.execute(query)
+    cleanname = (app_data.decode("utf-8")).replace("`","")
+    cleanname = (cleanname.replace("'","''"))
+#    cleanname = (cleanname.replace('"',"'\""))
+
     if not c.fetchone():
       print("Making new entry")
       flags = 0
       blacklist = 0
       lastseen = time.time()
-      cleanname = (app_data.decode("utf-8")).replace("`","")
-      cleanname = (cleanname.replace("'","''"))
-#      cleanname = (cleanname.replace('"',"'\""))
-      
       c.execute("INSERT INTO pages VALUES ('"+cleanname+"', '"+cleanhash+"', '"+str(lastseen)+"', "+str(blacklist)+", "+str(flags)+")")
       con.commit()
       con.close()
     else:
       print("Entry exists")
-      query = "UPDATE pages SET lastseen = '"+str(time.time())+"' WHERE hash = '"+cleanhash+"'"
+      query = "UPDATE pages SET lastseen = '"+str(time.time())+"', name ='"+cleanname+"' WHERE hash = '"+cleanhash+"'"
       c.execute(query)
       con.commit()
       con.close()
-      print("LastSeen updated successfully")
+      print("Data updated successfully")
       
 
 
